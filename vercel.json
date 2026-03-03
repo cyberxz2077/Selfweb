@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd portfolio && npm run build",
+  "outputDirectory": "portfolio/.next",
+  "installCommand": "cd portfolio && npm install",
+  "framework": "nextjs"
+}
