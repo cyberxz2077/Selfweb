@@ -44,7 +44,7 @@ export default function Home() {
                 content={
                   <div className="space-y-4">
                     <p className="text-2xl text-slate-400">AI Product Manager</p>
-                    <p>Building AI-native products with multi-agent systems. 7 years of product experience.</p>
+                    <p>5年产品经理经验，专注AI Agent系统架构与Vibe Coding全栈落地。精通Multi-agent协作、Semantic Router意图分发与RAG知识库构建。</p>
                   </div>
                 }
               />
@@ -53,9 +53,9 @@ export default function Home() {
             <motion.div variants={fadeInUp}>
               <ProjectTile
                 title="Claw OS"
-                description="Local-First personal AI operating system with multi-agent architecture"
-                tags={["OpenClaw", "RAG"]}
-                status="Active"
+                description="Local-First个人AI操作系统，Multi-agent架构"
+                tags={["OpenClaw", "RAG", "MCP"]}
+                status="开发中"
                 href="/projects"
               />
             </motion.div>
@@ -63,29 +63,29 @@ export default function Home() {
             <motion.div variants={fadeInUp}>
               <ProjectTile
                 title="Startup Hub"
-                description="AI-native startup matching platform built with Vibe Coding"
+                description="AI-Native创业匹配平台，Vibe Coding全栈开发"
                 tags={["Vercel", "Supabase"]}
-                status="Live"
+                status="已上线"
                 href="/projects"
               />
             </motion.div>
 
             <motion.div variants={fadeInUp}>
               <TextTile
-                title="i design things."
+                title="拾石 PebblePick"
                 content={
-                  <p>i think design can change things.</p>
+                  <p>用户数字分身与技能交易平台 · BP完成</p>
                 }
-                href="/about"
+                href="/projects"
               />
             </motion.div>
 
             <motion.div variants={fadeInUp}>
               <ProjectTile
-                title="Wenji"
-                description="Exploratory learning AI agent with non-linear dialogue interaction"
-                tags={["Coze", "Prompt"]}
-                status="Released"
+                title="问记 Wenji"
+                description="探索式学习AI Agent，非线性对话交互"
+                tags={["Coze", "RAG"]}
+                status="Demo"
                 href="/projects"
               />
             </motion.div>
@@ -101,9 +101,9 @@ export default function Home() {
 
             <motion.div variants={fadeInUp}>
               <SocialTile
-                name="黄鑫哲"
+                name="Email"
                 username="Cyberxz2077@gmail.com"
-                platform="Email"
+                platform="Mail"
                 href="mailto:Cyberxz2077@gmail.com"
               />
             </motion.div>
@@ -138,12 +138,15 @@ export default function Home() {
                   <div className="flex items-center gap-3 mb-4">
                     <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                     <span className="text-xs text-slate-500 font-medium">
-                      Available for work
+                      求职中
                     </span>
                   </div>
                   <h3 className="text-lg font-bold text-slate-900">
-                    Let's Talk
+                    AI产品经理
                   </h3>
+                  <p className="text-slate-600 text-sm">
+                    期望薪资：20k-30k
+                  </p>
                   <div className="flex-1" />
                 </div>
               </GridTile>
@@ -153,10 +156,10 @@ export default function Home() {
               <GridTile href="/projects">
                 <div className="h-full flex flex-col">
                   <h3 className="text-lg font-bold text-slate-900 mb-2">
-                    View All Projects
+                    查看全部项目
                   </h3>
                   <p className="text-slate-600 text-sm">
-                    See everything I've been working on
+                    了解我正在做的事情
                   </p>
                   <div className="flex-1" />
                 </div>
