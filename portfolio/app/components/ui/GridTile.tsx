@@ -27,9 +27,10 @@ export function GridTile({
   };
 
   const baseClasses = cn(
-    'bg-slate-100 rounded-3xl p-6 relative overflow-hidden',
-    'transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]',
-    'hover:bg-slate-200 hover:-translate-y-1 hover:shadow-soft',
+    'bg-slate-100 rounded-3xl p-6 relative',
+    'transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]',
+    'hover:translate-y-[-2px]',
+    'hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)]',
     sizeClasses[size],
     className
   );
@@ -38,11 +39,19 @@ export function GridTile({
     <div className={baseClasses}>
       {children}
       {(href || onClick) && (
-        <div className="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-soft">
-          <span className="text-slate-900 text-lg">↗</span>
+        <div className="absolute bottom-5 right-5 w-8 h-8 bg-white rounded-full flex items-center justify-center opacity-0 translate-x-[-4px] translate-y-[4px] transition-all duration-300 ease group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0">
+          <span className="text-slate-900">↗</span>
         </div>
       )}
     </div>
+  );
+
+  const WrappedContent = href || onClick ? (
+    <div className="group">
+      <Content />
+    </div>
+  ) : (
+    <Content />
   );
 
   if (href) {
@@ -50,8 +59,9 @@ export function GridTile({
       <motion.a
         href={href}
         whileTap={{ scale: 0.98 }}
+        className="block"
       >
-        <Content />
+        {WrappedContent}
       </motion.a>
     );
   }
@@ -61,13 +71,14 @@ export function GridTile({
       <motion.button
         onClick={onClick}
         whileTap={{ scale: 0.98 }}
+        className="block w-full text-left"
       >
-        <Content />
+        {WrappedContent}
       </motion.button>
     );
   }
 
-  return <Content />;
+  return WrappedContent;
 }
 
 interface TextTileProps {

@@ -73,9 +73,7 @@ export default function Home() {
             <motion.div variants={fadeInUp}>
               <TextTile
                 title="拾石 PebblePick"
-                content={
-                  <p>用户数字分身与技能交易平台 · BP完成</p>
-                }
+                content={<p>用户数字分身与技能交易平台 · BP完成</p>}
                 href="/projects"
               />
             </motion.div>
@@ -111,11 +109,7 @@ export default function Home() {
             <motion.div variants={fadeInUp}>
               <TextTile
                 title="AI Agent的下一个形态"
-                content={
-                  <div className="text-sm text-slate-500">
-                    v260302.1 · 2026-03-02
-                  </div>
-                }
+                content={<div className="text-sm text-slate-500">v260302.1 · 2026-03-02</div>}
                 href="/thoughts"
               />
             </motion.div>
@@ -123,11 +117,7 @@ export default function Home() {
             <motion.div variants={fadeInUp}>
               <TextTile
                 title="为什么我要做Claw OS"
-                content={
-                  <div className="text-sm text-slate-500">
-                    v260301.1 · 2026-03-01
-                  </div>
-                }
+                content={<div className="text-sm text-slate-500">v260301.1 · 2026-03-01</div>}
                 href="/thoughts"
               />
             </motion.div>
@@ -137,16 +127,10 @@ export default function Home() {
                 <div className="h-full flex flex-col">
                   <div className="flex items-center gap-3 mb-4">
                     <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                    <span className="text-xs text-slate-500 font-medium">
-                      求职中
-                    </span>
+                    <span className="text-xs text-slate-500 font-medium">求职中</span>
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900">
-                    AI产品经理
-                  </h3>
-                  <p className="text-slate-600 text-sm">
-                    期望薪资：20k-30k
-                  </p>
+                  <h3 className="text-lg font-bold text-slate-900">AI产品经理</h3>
+                  <p className="text-slate-600 text-sm">期望薪资：20k-30k</p>
                   <div className="flex-1" />
                 </div>
               </GridTile>
@@ -155,12 +139,8 @@ export default function Home() {
             <motion.div variants={fadeInUp}>
               <GridTile href="/projects">
                 <div className="h-full flex flex-col">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">
-                    查看全部项目
-                  </h3>
-                  <p className="text-slate-600 text-sm">
-                    了解我正在做的事情
-                  </p>
+                  <h3 className="text-lg font-bold text-slate-900 mb-2">查看全部项目</h3>
+                  <p className="text-slate-600 text-sm">了解我正在做的事情</p>
                   <div className="flex-1" />
                 </div>
               </GridTile>

@@ -2,20 +2,32 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 const NAV_LINKS = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
-  { name: 'Work', href: '/projects' },
+  { name: 'Projects', href: '/projects' },
   { name: 'Thoughts', href: '/thoughts' },
   { name: 'Contact', href: '/contact' },
 ];
 
+const FILTERS = [
+  { id: 'all', label: 'All' },
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'media', label: 'Media' },
+];
+
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('all');
   const pathname = usePathname();
+
+  useEffect(() => {
+    setActiveFilter('all');
+  }, [pathname]);
 
   return (
     <>
@@ -28,7 +40,6 @@ export function Navbar() {
         <div className="pointer-events-auto">
           <div className="glass-frost rounded-full px-2 py-2 shadow-medium">
             <div className="flex items-center gap-1">
-              {/* Logo */}
               <Link href="/" className="relative group">
                 <motion.div
                   className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-black/5 transition-colors"
@@ -41,71 +52,35 @@ export function Navbar() {
                 </motion.div>
               </Link>
 
-              <div className="h-6 w-px bg-black/10 mx-1" />
+              <div className="h-6 w-px bg-slate-200/20 mx-2" />
 
-              {/* Desktop Menu */}
               <div className="hidden md:flex items-center gap-1">
-                {NAV_LINKS.map((link, index) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 + index * 0.08 }}
+                {FILTERS.map((filter) => (
+                  <motion.button
+                    key={filter.id}
+                    onClick={() => setActiveFilter(filter.id)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeFilter === filter.id ? 'bg-slate-900 text-white' : 'text-slate-600 hover:text-slate-900 hover:bg-white/10'}`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Link
-                      href={link.href}
-                      className={`
-                        relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
-                        ${pathname === link.href 
-                          ? 'text-slate-900 bg-black/5' 
-                          : 'text-slate-600 hover:text-slate-900 hover:bg-black/[0.03]'
-                        }
-                      `}
-                    >
-                      {link.name}
-                    </Link>
-                  </motion.div>
+                    {filter.label}
+                  </motion.button>
                 ))}
               </div>
 
-              {/* Mobile Menu Button */}
-              <motion.button
-                className="md:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-black/5 transition-colors"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                whileTap={{ scale: 0.9 }}
+              <div className="h-6 w-px bg-slate-200/20 mx-2" />
+
+              <Link
+                href="/contact"
+                className="px-5 py-2 rounded-full bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
               >
-                <div className="relative w-5 h-4">
-                  <motion.span
-                    className="absolute left-0 w-full h-0.5 bg-slate-900 rounded-full"
-                    animate={{
-                      top: isMobileMenuOpen ? '50%' : '0%',
-                      rotate: isMobileMenuOpen ? 45 : 0,
-                      translateY: isMobileMenuOpen ? '-50%' : '0%'
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <motion.span
-                    className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 bg-slate-900 rounded-full"
-                    animate={{ opacity: isMobileMenuOpen ? 0 : 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <motion.span
-                    className="absolute left-0 w-full h-0.5 bg-slate-900 rounded-full"
-                    animate={{
-                      bottom: isMobileMenuOpen ? '50%' : '0%',
-                      rotate: isMobileMenuOpen ? -45 : 0,
-                      translateY: isMobileMenuOpen ? '50%' : '0%'
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
-              </motion.button>
+                Contact
+              </Link>
             </div>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
@@ -114,7 +89,7 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <motion.div
@@ -136,13 +111,7 @@ export function Navbar() {
                       <Link
                         href={link.href}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`
-                          block px-6 py-4 rounded-2xl text-lg font-medium transition-all
-                          ${pathname === link.href
-                            ? 'text-slate-900 bg-black/5'
-                            : 'text-slate-600 hover:text-slate-900 hover:bg-black/[0.03]'
-                          }
-                        `}
+                        className={`block px-6 py-4 rounded-2xl text-lg font-medium transition-all ${pathname === link.href ? 'text-slate-900 bg-black/5' : 'text-slate-600 hover:text-slate-900 hover:bg-black/[0.03]'}`}
                       >
                         {link.name}
                       </Link>
