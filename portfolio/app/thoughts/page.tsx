@@ -1,9 +1,9 @@
 'use client';
 
 import { Navbar } from "@/app/components/layout/Navbar";
-import { Footer } from "@/app/components/layout/Footer";
-import { TextTile } from "@/app/components/ui/GridTile";
-import { motion } from 'framer-motion';
+import { BigCard } from "@/app/components/ui/BigCard";
+import { cn } from '@/lib/utils';
+import { useState } from 'react';
 
 const articles = [
   {
@@ -32,70 +32,43 @@ const articles = [
   },
 ];
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1
-    }
-  }
-};
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }
-  }
-};
-
 export default function Thoughts() {
+  const [isDark, setIsDark] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    document.documentElement.classList.toggle('dark', !isDark);
+  };
+
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <Navbar />
+    <div className={cn('min-h-screen transition-colors duration-300', isDark ? 'bg-slate-900 text-white' : 'bg-white text-slate-900')}>
+      <Navbar isDark={isDark} onToggleTheme={toggleTheme} />
       
       <main className="pt-32 pb-20 px-6">
-        <motion.div
-          className="max-w-6xl mx-auto"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <motion.div variants={fadeInUp} className="lg:col-span-2">
-              <TextTile
-                title="Thoughts"
-                content={
-                  <div>
-                    <p className="text-xl text-slate-600">
-                      Version-controlled thinking on AI, products, and the future
-                    </p>
-                  </div>
-                }
-              />
-            </motion.div>
+        <div className="max-w-6xl mx-auto">
+          <BigCard title="Thoughts">
+            <p className="text-xl text-slate-600 mb-8">
+              Version-controlled thinking on AI, products, and the future
+            </p>
 
-            {articles.map((article, index) => (
-              <motion.div key={article.title} variants={fadeInUp}>
-                <TextTile
-                  title={article.title}
-                  content={
-                    <div className="space-y-2 text-sm text-slate-500">
-                      <p>{article.version}</p>
-                      <p>{article.date}</p>
-                    </div>
-                  }
-                />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+            <div className="space-y-4">
+              {articles.map((article) => (
+                <div
+                  key={article.title}
+                  className="p-6 bg-white rounded-2xl hover:shadow-lg transition-shadow cursor-pointer"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-xl font-bold">{article.title}</h3>
+                    <span className="text-sm text-slate-500">{article.version}</span>
+                  </div>
+                  <p className="text-slate-600 mb-2">{article.excerpt}</p>
+                  <p className="text-sm text-slate-500">{article.date}</p>
+                </div>
+              ))}
+            </div>
+          </BigCard>
+        </div>
       </main>
-      
-      <Footer />
     </div>
   );
 }

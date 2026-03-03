@@ -1,9 +1,9 @@
 'use client';
 
 import { Navbar } from "@/app/components/layout/Navbar";
-import { Footer } from "@/app/components/layout/Footer";
-import { ProjectTile, TextTile, GridTile } from "@/app/components/ui/GridTile";
-import { motion } from 'framer-motion';
+import { BigCard } from "@/app/components/ui/BigCard";
+import { cn } from '@/lib/utils';
+import { useState } from 'react';
 
 const projects = [
   {
@@ -40,97 +40,71 @@ const projects = [
   },
 ];
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1
-    }
-  }
-};
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }
-  }
-};
-
 export default function Projects() {
+  const [isDark, setIsDark] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    document.documentElement.classList.toggle('dark', !isDark);
+  };
+
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <Navbar />
+    <div className={cn('min-h-screen transition-colors duration-300', isDark ? 'bg-slate-900 text-white' : 'bg-white text-slate-900')}>
+      <Navbar isDark={isDark} onToggleTheme={toggleTheme} />
       
       <main className="pt-32 pb-20 px-6">
-        <motion.div
-          className="max-w-6xl mx-auto"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <motion.div variants={fadeInUp} className="lg:col-span-2">
-              <TextTile
-                title="项目作品"
-                content={
-                  <div>
-                    <p className="text-xl text-slate-600">
-                      正在构建的AI-Native产品
-                    </p>
-                  </div>
-                }
-              />
-            </motion.div>
-
-            {projects.map((project) => (
-              <motion.div key={project.id} variants={fadeInUp}>
-                <ProjectTile
-                  title={project.title}
-                  description={project.description}
-                  tags={project.tags}
-                  status={project.status}
+        <div className="max-w-6xl mx-auto">
+          <BigCard title="项目作品">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {projects.map((project) => (
+                <a
+                  key={project.id}
                   href={project.link}
-                />
-              </motion.div>
-            ))}
-
-            <motion.div variants={fadeInUp} className="lg:col-span-2">
-              <TextTile
-                title="Claw OS - 核心特性"
-                content={
-                  <div className="space-y-3 text-sm text-slate-600">
-                    <p>• 多智能体语义路由（Semantic Router）：意图识别引擎自动分流用户请求</p>
-                    <p>• 仿生记忆管理系统：非静态的记忆生命周期，模拟人类认知机制</p>
-                    <p>• Life Stream数字孪生：主动+被动数据采集，构建个人知识图谱</p>
-                    <p>• MCP协议扩展：打通本地文件系统/Obsidian/浏览器工具链</p>
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block p-6 bg-white rounded-2xl hover:shadow-lg transition-shadow"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-bold">{project.title}</h3>
+                    <div className="flex items-center gap-2">
+                      <span className={`w-2 h-2 rounded-full ${project.status === '已上线' || project.status === '开发中' ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
+                      <span className="text-sm text-slate-500">{project.status}</span>
+                    </div>
                   </div>
-                }
-                href="https://github.com/cyberxz2077"
-              />
-            </motion.div>
-
-            <motion.div variants={fadeInUp} className="lg:col-span-2">
-              <TextTile
-                title="技术栈"
-                content={
-                  <div className="space-y-2 text-sm text-slate-600">
-                    <p><span className="font-medium text-slate-900">AI Agent:</span> Multi-agent协作、Planning、Tool Use、Memory、Persona</p>
-                    <p><span className="font-medium text-slate-900">LLM工程:</span> RAG、Prompt Engineering、MCP协议、Skills</p>
-                    <p><span className="font-medium text-slate-900">开发工具:</span> Claude Code、Vercel、Supabase、Figma</p>
-                    <p><span className="font-medium text-slate-900">AI平台:</span> Coze、Dify、n8n、OpenClaw</p>
+                  <p className="text-slate-600 mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map(tag => (
+                      <span key={tag} className="px-3 py-1 bg-slate-100 rounded-full text-xs">{tag}</span>
+                    ))}
                   </div>
-                }
-              />
-            </motion.div>
-          </div>
-        </motion.div>
+                </a>
+              ))}
+            </div>
+
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold mb-6">Claw OS - 核心特性</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-6 bg-white rounded-2xl">
+                  <h4 className="font-bold mb-2">多智能体语义路由</h4>
+                  <p className="text-slate-600 text-sm">Semantic Router：意图识别引擎自动分流用户请求</p>
+                </div>
+                <div className="p-6 bg-white rounded-2xl">
+                  <h4 className="font-bold mb-2">仿生记忆管理系统</h4>
+                  <p className="text-slate-600 text-sm">非静态的记忆生命周期，模拟人类认知机制</p>
+                </div>
+                <div className="p-6 bg-white rounded-2xl">
+                  <h4 className="font-bold mb-2">Life Stream数字孪生</h4>
+                  <p className="text-slate-600 text-sm">主动+被动数据采集，构建个人知识图谱</p>
+                </div>
+                <div className="p-6 bg-white rounded-2xl">
+                  <h4 className="font-bold mb-2">MCP协议扩展</h4>
+                  <p className="text-slate-600 text-sm">打通本地文件系统/Obsidian/浏览器工具链</p>
+                </div>
+              </div>
+            </div>
+          </BigCard>
+        </div>
       </main>
-      
-      <Footer />
     </div>
   );
 }

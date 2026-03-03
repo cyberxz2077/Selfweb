@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Navbar } from "@/app/components/layout/Navbar";
-import { Footer } from "@/app/components/layout/Footer";
 import { DraggableGrid } from "@/app/components/ui/DraggableGrid";
 import { ThemeToggle } from "@/app/components/ui/DraggableGrid";
 import { cn } from '@/lib/utils';
@@ -17,7 +16,7 @@ const gridItems = [
         <p className="text-slate-600">5年产品经理经验，专注AI Agent系统架构与Vibe Coding全栈落地。</p>
       </div>
     ),
-    layout: { x: 0, y: 0, w: 2, h: 2, minW: 1, minH: 1, maxW: 2, maxH: 2 },
+    layout: { x: 0, y: 0, w: 2, h: 2 },
   },
   {
     id: 'claw-os',
@@ -36,7 +35,7 @@ const gridItems = [
         </div>
       </div>
     ),
-    layout: { x: 2, y: 0, w: 1, h: 1, minW: 1, minH: 1 },
+    layout: { x: 2, y: 0, w: 1, h: 1 },
   },
   {
     id: 'startup-hub',
@@ -55,7 +54,7 @@ const gridItems = [
         </div>
       </div>
     ),
-    layout: { x: 3, y: 0, w: 1, h: 1, minW: 1, minH: 1 },
+    layout: { x: 3, y: 0, w: 1, h: 1 },
   },
   {
     id: 'pebble-pick',
@@ -65,7 +64,7 @@ const gridItems = [
         <p className="text-slate-600 text-sm">用户数字分身与技能交易平台 · BP完成</p>
       </div>
     ),
-    layout: { x: 2, y: 1, w: 1, h: 1, minW: 1, minH: 1 },
+    layout: { x: 2, y: 1, w: 1, h: 1 },
   },
   {
     id: 'wenji',
@@ -84,7 +83,7 @@ const gridItems = [
         </div>
       </div>
     ),
-    layout: { x: 3, y: 1, w: 1, h: 1, minW: 1, minH: 1 },
+    layout: { x: 3, y: 1, w: 1, h: 1 },
   },
   {
     id: 'social-x',
@@ -97,7 +96,7 @@ const gridItems = [
         </div>
       </div>
     ),
-    layout: { x: 0, y: 2, w: 1, h: 1, minW: 1, minH: 1 },
+    layout: { x: 0, y: 2, w: 1, h: 1 },
   },
   {
     id: 'social-email',
@@ -110,7 +109,7 @@ const gridItems = [
         </div>
       </div>
     ),
-    layout: { x: 1, y: 2, w: 1, h: 1, minW: 1, minH: 1 },
+    layout: { x: 1, y: 2, w: 1, h: 1 },
   },
   {
     id: 'blog-1',
@@ -120,7 +119,7 @@ const gridItems = [
         <p className="text-sm text-slate-500">v260302.1 · 2026-03-02</p>
       </div>
     ),
-    layout: { x: 2, y: 2, w: 1, h: 1, minW: 1, minH: 1 },
+    layout: { x: 2, y: 2, w: 1, h: 1 },
   },
   {
     id: 'blog-2',
@@ -130,7 +129,7 @@ const gridItems = [
         <p className="text-sm text-slate-500">v260301.1 · 2026-03-01</p>
       </div>
     ),
-    layout: { x: 3, y: 2, w: 1, h: 1, minW: 1, minH: 1 },
+    layout: { x: 3, y: 2, w: 1, h: 1 },
   },
   {
     id: 'hiring',
@@ -144,7 +143,7 @@ const gridItems = [
         <p className="text-slate-600 text-sm">期望薪资：20k-30k</p>
       </div>
     ),
-    layout: { x: 0, y: 3, w: 1, h: 1, minW: 1, minH: 1 },
+    layout: { x: 0, y: 3, w: 1, h: 1 },
   },
   {
     id: 'view-all',
@@ -154,7 +153,7 @@ const gridItems = [
         <p className="text-slate-600 text-sm">了解我正在做的事情</p>
       </div>
     ),
-    layout: { x: 1, y: 3, w: 1, h: 1, minW: 1, minH: 1 },
+    layout: { x: 1, y: 3, w: 1, h: 1 },
   },
   {
     id: 'theme-toggle',
@@ -164,7 +163,7 @@ const gridItems = [
         <ThemeToggle isDark={false} onToggle={() => {}} />
       </div>
     ),
-    layout: { x: 2, y: 3, w: 1, h: 1, minW: 1, minH: 1 },
+    layout: { x: 2, y: 3, w: 1, h: 1 },
   },
 ];
 
@@ -186,9 +185,7 @@ export default function Home() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleLayoutChange = (layout: any[]) => {
-    console.log('Layout changed:', layout);
-  };
+  const handleLayoutChange = () => {};
 
   const toggleTheme = () => {
     setIsDark(!isDark);
@@ -216,8 +213,6 @@ export default function Home() {
           />
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 }
