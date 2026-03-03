@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { ThemeToggle } from '@/app/components/ui/DraggableGrid';
 
 const NAV_LINKS = [
   { name: 'Home', href: '/' },
@@ -20,7 +21,12 @@ const FILTERS = [
   { id: 'media', label: 'Media' },
 ];
 
-export function Navbar() {
+interface NavbarProps {
+  isDark?: boolean;
+  onToggleTheme?: () => void;
+}
+
+export function Navbar({ isDark = false, onToggleTheme }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
   const pathname = usePathname();
@@ -46,7 +52,7 @@ export function Navbar() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="font-semibold text-slate-900 tracking-tight">
+                  <span className={`font-semibold tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
                     黄鑫哲
                   </span>
                 </motion.div>
@@ -59,7 +65,7 @@ export function Navbar() {
                   <motion.button
                     key={filter.id}
                     onClick={() => setActiveFilter(filter.id)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeFilter === filter.id ? 'bg-slate-900 text-white' : 'text-slate-600 hover:text-slate-900 hover:bg-white/10'}`}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeFilter === filter.id ? 'bg-slate-900 text-white' : `${isDark ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'} hover:bg-white/10`}`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -67,6 +73,12 @@ export function Navbar() {
                   </motion.button>
                 ))}
               </div>
+
+              <div className="h-6 w-px bg-slate-200/20 mx-2" />
+
+              {onToggleTheme && (
+                <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
+              )}
 
               <div className="h-6 w-px bg-slate-200/20 mx-2" />
 
